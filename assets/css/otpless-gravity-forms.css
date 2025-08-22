@@ -1,0 +1,487 @@
+/* OTPless Gravity Forms Integration Styles */
+
+/* Modal Styles */
+.otpless-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.otpless-modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 30px;
+    border: none;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.otpless-close {
+    color: #999;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.otpless-close:hover {
+    color: #333;
+}
+
+/* Modal Header */
+.otpless-modal-content h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.otpless-modal-content p {
+    margin: 0 0 25px 0;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Authentication Options */
+.otpless-auth-options {
+    margin: 25px 0;
+}
+
+.otpless-option {
+    margin-bottom: 20px;
+}
+
+.otpless-option label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.otpless-option input{
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+.otpless-option select {
+    width: 10%;
+    padding: 12px 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.unified-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.otpless-option input:focus,
+.otpless-option select:focus,
+.unified-input:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
+}
+
+.otpless-select {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+/* Button Styles */
+.otpless-btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff !important;
+    text-transform: uppercase;
+    background: #6728DD !important;
+    height: 50px;
+    padding: 0 35px;
+    line-height: 50px;
+    border-radius: 50px;
+    border: 0;
+}
+
+
+.otpless-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 115, 170, 0.3);
+    background: #ed4504 !important;
+}
+
+.otpless-btn:active {
+    transform: translateY(0);
+}
+
+.otpless-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.otpless-btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    margin-top: 10px;
+}
+
+.otpless-btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* OTP Verification Section */
+.otp-verification {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e5e9;
+}
+
+.otp-verification .otpless-option {
+    margin-bottom: 15px;
+}
+
+.otp-verification .otpless-btn {
+    margin-bottom: 10px;
+}
+
+/* Status Messages */
+.otpless-status {
+    margin-top: 20px;
+    padding: 0px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.otpless-status .success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+	padding: 7px 10px;
+    text-align: center;
+}
+
+.otpless-status .error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 7px 10px;
+    text-align: center;
+}
+.otpless-status .info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+	padding: 7px 10px;
+    text-align: center;
+}
+
+/* User Authentication Status */
+.otpless-user-info {
+    background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #155724;
+    border-left: 4px solid #28a745;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.otpless-user-info::before {
+    content: "✓";
+    margin-right: 10px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Logout Button */
+.otpless-logout {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.otpless-logout:hover {
+    background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Success Message */
+#otpless-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    animation: slideInRight 0.3s ease-out;
+    font-weight: 600;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Form Integration Styles */
+.gform_wrapper .gform_footer {
+    position: relative;
+}
+
+.gform_wrapper .otpless-initialized {
+    position: relative;
+}
+
+/* Loading States */
+.otpless-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.otpless-loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .otpless-modal-content {
+        margin: 5% auto;
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .otpless-modal-content h2 {
+        font-size: 20px;
+    }
+    
+    .otpless-modal-content p {
+        font-size: 14px;
+    }
+    
+    #otpless-success {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .otpless-modal-content {
+        background-color: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .otpless-modal-content h2 {
+        color: #f7fafc;
+    }
+    
+    .otpless-modal-content p {
+        color: #a0aec0;
+    }
+    
+    .otpless-option label {
+        color: #f7fafc;
+    }
+    
+    .otpless-option input {
+        background-color: #4a5568;
+        border-color: #718096;
+        color: #666666;
+    }
+    
+    .otpless-option input:focus {
+        border-color: #0073aa;
+    }
+    
+    .otpless-close {
+        color: #a0aec0;
+    }
+    
+    .otpless-close:hover {
+        color: #f7fafc;
+    }
+}
+
+/* Accessibility Improvements */
+.otpless-modal:focus {
+    outline: none;
+}
+
+.otpless-btn:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.otpless-option input:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .otpless-modal-content {
+        border: 2px solid #000;
+    }
+    
+    .otpless-btn {
+        border: 2px solid #000;
+    }
+    
+    .otpless-option input {
+        border: 2px solid #000;
+    }
+}
+/** Design **/
+@media (prefers-color-scheme: dark) {
+    .otpless-modal-content {
+        background-color: #fff;
+        color: #283747;
+    }
+	.otpless-modal-content h2 {
+		color: #283747;
+		text-align: center;
+	}
+	.otpless-modal-content p {
+		color: #5a5a5a;
+		text-align: center;
+	}
+	.otpless-option input {
+        border-color: #718096;
+        padding: 14px 15px !important;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        border-width: 1px;
+    }
+}
+.otp-icon {
+    text-align: center;
+}
+.otp-header h3 {
+    text-align: center;
+}
+.otpless-status .success {
+    text-align: center;
+    padding: 7px 10px;
+    border-radius: 4px;
+}
+div#otpless-floating-button {
+    DISPLAY: NONE;
+}
+
+
+/* Contact input group for phone/email with country code */
+.contact-input-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.country-code-select {
+    width: 180px;
+    min-width: 180px;
+    padding: 12px 10px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    height: 50px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 25px;
+    text-align: center;
+}
+
+.contact-input-group .unified-input {
+    flex: 1;
+}
+
