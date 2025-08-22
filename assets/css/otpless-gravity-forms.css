@@ -97,12 +97,17 @@
 }
 .otpless-option select {
     width: 10%;
-    padding: 12px 15px;
     border: 2px solid #e1e5e9;
     border-radius: 8px;
-    font-size: 16px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box;
+    border-color: #718096;
+    padding: 14px 15px !important;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border-width: 1px;
+    text-align: left;
 }
 
 .unified-input {
@@ -484,4 +489,17 @@ div#otpless-floating-button {
 .contact-input-group .unified-input {
     flex: 1;
 }
-
+.otpless-user-info,
+.otpless-logout {
+	display: none;
+}
+@media (max-width:500px) {
+	.contact-input-group {
+		display: block;
+	}
+	.otpless-option select {
+		min-width: 100%;
+		width: 100%;
+		margin: 0 0 20px 0;
+	}
+}

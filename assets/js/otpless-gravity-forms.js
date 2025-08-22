@@ -27,7 +27,6 @@ jQuery(document).ready(function($) {
             // Check if this form is enabled for OTPless
             const enabledForms = otpless_ajax.enabled_forms || [];
             if (enabledForms.length > 0 && !enabledForms.includes(parseInt(formIdNumber))) {
-                console.log('Form ' + formIdNumber + ' not enabled for OTPless');
                 return;
             }
             
@@ -110,13 +109,33 @@ jQuery(document).ready(function($) {
         
                  $('#otpless-modal').show();
          $('#otpless-status').html('');
-         $('#otpless-contact').val('');
-         $('#otpless-otp').val('');
-        $('#otpless-country-code').hide();
         
-        // Reset modal state
-        $('.otpless-auth-options').show();
-        $('#otp-verification').hide();
+        // Check if we should restore previous state
+        const savedStep = sessionStorage.getItem('otpless_modal_step');
+        const savedContact = sessionStorage.getItem('otpless_contact');
+        
+        if (savedStep === 'otp_verification' && savedContact) {
+            // Restore OTP verification step
+            $('#otpless-contact').val(savedContact);
+            $('#otpless-otp').val('');
+            $('#otpless-country-code').hide();
+            
+            // Show OTP verification section
+            $('.otpless-auth-options').hide();
+            $('#otp-verification').show();
+            
+            // Focus on OTP input
+            $('#otpless-otp').focus();
+        } else {
+            // Reset to initial state
+            $('#otpless-contact').val('');
+            $('#otpless-otp').val('');
+            $('#otpless-country-code').hide();
+            
+            // Reset modal state
+            $('.otpless-auth-options').show();
+            $('#otp-verification').hide();
+        }
     }
     
     // Create OTPless modal if it doesn't exist
@@ -335,6 +354,12 @@ jQuery(document).ready(function($) {
                             </div>
                             
                             <div class="otp-actions">
+                                <button id="otpless-back-to-contact" class="otpless-btn otpless-btn-secondary" style="margin-bottom: 10px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
+                                    </svg>
+                                    Back
+                                </button>
                                 <button id="otpless-verify-otp" class="otpless-btn otpless-btn-success">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
@@ -383,16 +408,12 @@ jQuery(document).ready(function($) {
             const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned);
             const isPhoneLike = /^\+?[0-9]{7,}$/.test(cleaned) || /^[0-9]{10,}$/.test(cleaned);
 
-            console.log('Input detection:', { raw, cleaned, isEmail, isPhoneLike });
-
             const $code = $('#otpless-country-code');
             // Show/hide country code based on input type
             if (isEmail) {
                 $code.hide();
-                console.log('Email detected, hiding country code');
             } else if (isPhoneLike || /\d{5,}/.test(cleaned)) {
                 $code.show();
-                console.log('Phone detected, showing country code');
                 
                 // Handle country code extraction if user types +country code
                 if (cleaned.startsWith('+')) {
@@ -403,13 +424,11 @@ jQuery(document).ready(function($) {
                         if ($code.find(`option[value="${cc}"]`).length) {
                             $code.val(cc);
                             $(this).val(rest);
-                            console.log('Country code extracted:', cc, 'rest:', rest);
                         }
                     }
                 }
             } else {
                 $code.hide();
-                console.log('Neither email nor phone, hiding country code');
             }
         });
         
@@ -493,6 +512,10 @@ jQuery(document).ready(function($) {
  			          
  			          // Focus on OTP input
  			          $('#otpless-otp').focus();
+ 			          
+ 			          // Save current step and contact for restoration
+ 			          sessionStorage.setItem('otpless_modal_step', 'otp_verification');
+ 			          sessionStorage.setItem('otpless_contact', contact);
  			      } else {
  			          $('#otpless-status').html('<div class="error">' + data.message + '</div>');
  			      }
@@ -581,7 +604,24 @@ jQuery(document).ready(function($) {
              }, 2000);
          });
          
-         // Handle OTP input - auto-submit when 6 digits entered
+         // Handle back button
+         $(document).off('click', '#otpless-back-to-contact').on('click', '#otpless-back-to-contact', function() {
+             // Clear saved state
+             sessionStorage.removeItem('otpless_modal_step');
+             sessionStorage.removeItem('otpless_contact');
+             
+             // Go back to first step
+             $('.otpless-auth-options').show();
+             $('#otp-verification').hide();
+             $('#otpless-contact').val('');
+             $('#otpless-otp').val('');
+             $('#otpless-status').html('');
+             
+             // Focus on contact input
+             $('#otpless-contact').focus();
+         });
+        
+        // Handle OTP input - auto-submit when 6 digits entered
          $(document).off('input', '#otpless-otp').on('input', '#otpless-otp', function() {
              const otp = $(this).val().trim();
              if (otp.length === 6) {
@@ -591,6 +631,9 @@ jQuery(document).ready(function($) {
          
          // Handle modal close
          $(document).off('click', '.otpless-close').on('click', '.otpless-close', function() {
+             // Clear saved state when user intentionally closes modal
+             sessionStorage.removeItem('otpless_modal_step');
+             sessionStorage.removeItem('otpless_contact');
              hideOTPlessModal();
          });
          
@@ -632,6 +675,10 @@ jQuery(document).ready(function($) {
          
          $('#otpless-status').html('<div class="success">Authentication successful! Submitting form...</div>');
          
+        // Clear saved modal state
+        sessionStorage.removeItem('otpless_modal_step');
+        sessionStorage.removeItem('otpless_contact');
+        
          setTimeout(function() {
              hideOTPlessModal();
              
